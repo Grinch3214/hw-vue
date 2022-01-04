@@ -1,5 +1,19 @@
 // global styles
+@import 'fonts';
+@import 'reset';
+
+body {
+	background: #E5E5E5;
+}
+
 h1 {
-	font-size: 50px;
-	color: red;
+	text-align: center;
+	margin-top: 50px;
+	margin-bottom: 20px;
+	font-size: 30px;
+}
+.app {
+	max-width: 1230px;
+    margin: 0 auto;
+	padding: 0 15px;
 }
