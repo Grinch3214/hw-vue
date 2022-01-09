@@ -1,9 +1,10 @@
 // global styles
-@import 'fonts';
-@import 'reset';
+@import "fonts";
+@import "reset";
 
 body {
-	background: #E5E5E5;
+	background: #e5e5e5;
+	color: #222822;
 }
 
 h1 {
@@ -14,6 +15,6 @@ h1 {
 }
 .app {
 	max-width: 1230px;
-    margin: 0 auto;
+	margin: 0 auto;
 	padding: 0 15px;
 }
