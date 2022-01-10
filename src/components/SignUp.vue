@@ -1,9 +1,9 @@
 <template>
   <div class="sign-up-page">
     <h3 class="sign-up-page__title">Sign Up</h3>
-    <form class="sign-up-page__form">
+    <form @submit.prevent class="sign-up-page__form">
       <div
-        :class="{ active: isActive === userInfo['name'] }"
+        :class="{ active: isActive === 'name' }"
         class="sign-up-page__form-item"
       >
         <label>User name</label>
@@ -16,7 +16,7 @@
 
       <div
         class="sign-up-page__form-item"
-        :class="{ active: isActive === userInfo['surname'] }"
+        :class="{ active: isActive === 'surname' }"
       >
         <label>Surname</label>
         <input
@@ -28,7 +28,7 @@
 
       <div
         class="sign-up-page__form-item"
-        :class="{ active: isActive === userInfo['email'] }"
+        :class="{ active: isActive === 'email' }"
       >
         <label>Email</label>
         <input
@@ -40,7 +40,7 @@
 
       <div
         class="sign-up-page__form-item"
-        :class="{ active: isActive === userInfo['phone'] }"
+        :class="{ active: isActive === 'phone' }"
       >
         <label>Phone</label>
         <input
@@ -52,7 +52,7 @@
 
       <div
         class="sign-up-page__form-item"
-        :class="{ active: isActive === userInfo['birthYear'] }"
+        :class="{ active: isActive === 'birthYear' }"
       >
         <label>Birth Year</label>
         <input
@@ -64,7 +64,7 @@
 
       <div
         class="sign-up-page__form-item"
-        :class="{ active: isActive === userInfo['gender'] }"
+        :class="{ active: isActive === 'gender' }"
       >
         <input
           v-model="userInfo.gender"
@@ -87,7 +87,7 @@
 
       <div
         class="sign-up-page__form-item"
-        :class="{ active: isActive === userInfo['login'] }"
+        :class="{ active: isActive === 'login' }"
       >
         <label>Login</label>
         <input
@@ -99,7 +99,7 @@
 
       <div
         class="sign-up-page__form-item"
-        :class="{ active: isActive === userInfo['password'] }"
+        :class="{ active: isActive === 'password' }"
       >
         <label>Password</label>
         <input
@@ -111,7 +111,7 @@
 
       <div
         class="sign-up-page__form-item"
-        :class="{ active: isActive === userInfo['repeatedPassword'] }"
+        :class="{ active: isActive === 'repeatedPassword'}"
       >
         <label>Repeated Password</label>
         <input
@@ -123,7 +123,7 @@
 
       <div
         class="sign-up-page__form-item"
-        :class="{ active: isActive === userInfo['commercialExperience'] }"
+        :class="{ active: isActive === 'commercialExperience' }"
       >
         <input
           v-model="userInfo.commercialExperience"
@@ -137,7 +137,7 @@
 
       <div
         class="sign-up-page__form-item"
-        :class="{ active: isActive === userInfo['yearsOfExperience'] }"
+        :class="{ active: isActive === 'yearsOfExperience' }"
         v-show="userInfo.commercialExperience === 'Yes, I have'"
       >
         <label>Years Of Experience</label>
@@ -150,7 +150,7 @@
 
       <div
         class="sign-up-page__form-item"
-        :class="{ active: isActive === userInfo['country'] }"
+        :class="{ active: isActive === 'country' }"
       >
         <label>Country</label>
         <input
@@ -162,9 +162,9 @@
 
       <div
         class="sign-up-page__form-item"
-        :class="{ active: isActive === userInfo['city'] }"
+        :class="{ active: isActive === 'city' }"
       >
-        <label>City</label>
+        <label class="d-block">City</label>
         <input
           v-if="userInfo.country !== 'Ukraine'"
           v-model.lazy="userInfo.city"
@@ -182,7 +182,7 @@
 
       <div
         class="sign-up-page__form-item"
-        :class="{ active: isActive === userInfo['address'] }"
+        :class="{ active: isActive === 'address'}"
       >
         <label>Address</label>
         <input
@@ -194,9 +194,9 @@
 
       <div
         class="sign-up-page__form-item"
-        :class="{ active: isActive === userInfo['englishLevel'] }"
+        :class="{ active: isActive === 'englishLevel' }"
       >
-        <label> English level </label>
+        <label class="d-block"> English level </label>
         <select v-model="userInfo.englishLevel">
           <option value="" disabled>English level</option>
           <option
@@ -208,7 +208,15 @@
           </option>
         </select>
       </div>
+
+        <div 
+          class="result" 
+          v-for="(item, index) in userInfo" 
+          :key="index">
+            {{ index  }}: <span>{{ item }}</span>
+        </div>
     </form>
+
   </div>
 </template>
 
@@ -286,12 +294,12 @@ export default {
           label: "Proficiency",
         },
       ],
-      isActive: "",
+      isActive: '',
     };
   },
   methods: {
     setActiveItem(activeInput) {
-      this.isActive = this.userInfo[activeInput];
+      this.isActive = activeInput;
     },
   },
 };
@@ -304,12 +312,18 @@ export default {
   justify-content: center;
   align-items: center;
   font-size: 20px;
+  padding: 20px 0;
   &__title {
     margin: 20px 0;
     font-weight: 700;
   }
   &__form {
     max-width: 300px;
+  }
+  label {
+    padding-bottom: 6px;
+    display: inline-block;
+    padding-left: 7px;
   }
   label,
   p {
@@ -318,20 +332,35 @@ export default {
   }
   input {
     margin-bottom: 12px;
+    border: 1px solid transparent;
   }
   input[type="text"],
   input[type="number"],
-  input[type="email"] {
+  input[type="email"],
+  select {
     font-size: 18px;
     padding: 4px 10px;
     width: 100%;
+    border-radius: 15px;
   }
   input[type="radio"] {
     margin-right: 4px;
+    cursor: pointer;
   }
   .sign-up-page__form-item {
     &.active input {
-      border: 1px solid red;
+      border: 1px solid rgb(139, 0, 0);
+    }
+  }
+  .d-block {
+    display: block;
+  }
+  .result {
+    font-size: 16px;
+    margin-top: 5px;
+    span {
+      padding-left: 8px;
+      color: rgb(139, 0, 0);
     }
   }
 }
