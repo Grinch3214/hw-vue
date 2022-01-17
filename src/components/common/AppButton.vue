@@ -1,14 +1,12 @@
 <template>
   <div>
-      app button
+    <el-button @click="$emit('appButtonClick')">App Button</el-button>
   </div>
 </template>
 
 <script>
-
 export default {
-  name: 'AppButton',
-  components: {
-  },
+  name: "AppButton",
+  components: {},
 };
 </script>
