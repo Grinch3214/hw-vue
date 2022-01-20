@@ -2,6 +2,13 @@
   <div class="login-popup">
     <div class="login-popup__wrap">
       <el-card shadow="always">
+        <el-button
+          size="small"
+          icon="el-icon-close"
+          circle
+          @click="$emit('closePopUp')"
+          class="login-popup__btn"
+        ></el-button>
         <div class="login-popup__tabs">
           <el-radio-group v-model="isCollapse">
             <el-radio-button :label="false">Sign Up</el-radio-button>
@@ -49,6 +56,7 @@ export default {
   right: 0;
   bottom: 0;
   background: #0005;
+  overflow: scroll;
   &__wrap {
     position: absolute;
     top: 50%;
@@ -59,6 +67,12 @@ export default {
   }
   &__tabs {
     text-align: center;
+  }
+  button.login-popup__btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 25px 25px 0 0;
   }
 }
 </style>

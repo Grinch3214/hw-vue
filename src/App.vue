@@ -10,7 +10,7 @@
         @backPopUpEvent="backPopUpEvent"
         @continuePopUpEven="continuePopUpEven"
       />
-      <login-pop-up v-if="showLoginPopUp" />
+      <login-pop-up v-if="showLoginPopUp" @closePopUp="closePopUp"/>
     </div>
     <Footer />
   </div>
@@ -52,6 +52,9 @@ export default {
     loginButtonClick() {
       this.showLoginPopUp = true;
     },
+    closePopUp() {
+      this.showLoginPopUp = false;
+    }
   },
 };
 </script>
