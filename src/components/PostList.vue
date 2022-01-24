@@ -3,7 +3,11 @@
     <h2 v-once class="post-list__title">
       Начальное количество статей: {{ posts.length }}
     </h2>
-    <post-card />
+    <post-card 
+      v-for="post in posts"
+      :key="post.id"
+      :post="post"
+    />
   </div>
 </template>
 

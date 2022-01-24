@@ -18,16 +18,30 @@
 export default {
   name: "PostCard",
   components: {},
+  props: {
+    post: {
+      type: Object,
+      require: true,
+      default() {
+        return {
+          userId:1,
+          id:1,
+          title: 'Some default title',
+          body: 'Some default text',
+          validator: (obj) => {
+            const properties = [
+              'title',
+              'body'
+            ].filter(prop => !obj.hasOwnProp(prop))
+            return properties.length === 0
+          }
+        }
+      }
+    }
+  },
   data() {
     return {
       readMore: true,
-      post: {
-        userId: 1,
-        id: 2,
-        title:
-          "Sunt post card aut facere repellat provident occaecati excepturi optio reprehenderit",
-        body: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. In accusamus ratione ipsum est possimus, libero porro maxime enim perspiciatis distinctio quam neque repudiandae sequi a ut beatae illo ab quod! Minus, nesciunt ullam non beatae expedita repudiandae, voluptatibus est unde quas vero consequuntur. Esse, officiis ea. Amet iusto similique, reprehenderit perspiciatis quod consequuntur cupiditate magnam, esse, modi quos numquam harum libero reiciendis voluptates necessitatibus id repellat consequatur labore. Recusandae beatae eum earum vero officia dolor, accusantium expedita optio voluptas eos quas repellendus quae repellat ducimus ipsam voluptatum delectus rem totam! Accusantium pariatur exercitationem nesciunt necessitatibus, similique ea nobis quaerat consectetur tempora eum soluta autem temporibus quibusdam deserunt dolor saepe accusamus voluptate quo quod quia debitis. Dolorum corporis perferendis illo iure! Sunt, cum. Dolor explicabo voluptas fugiat asperiores quisquam ex rem. Earum ducimus maxime laborum cumque accusantium tenetur. Illum, aperiam, est modi itaque minima officiis odit blanditiis, voluptate facere expedita eius!",
-      },
     };
   },
   computed: {

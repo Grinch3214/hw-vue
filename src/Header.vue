@@ -14,7 +14,7 @@ export default {
   name: "Header",
   components: {},
   data: () => ({
-    logoHtml: '<a class="logo" style="color: #fff;" href=" / "> </a>',
+    logoHtml: '<a class="logo" style="color: #fff;" href=" # "> </a>',
   }),
 };
 </script>
