@@ -16,7 +16,7 @@
       >
       <el-button @click="resetForm('ruleForm')">Reset</el-button>
     </el-form-item>
-    <p class="wrong-message">{{ wrongMessage }}</p>
+    <p :class="{ 'wrong-message': wrongMessage, 'success-msg': successMsg }">{{ wrongMessage || successMsg }}</p>
   </el-form>
 </template>
 
@@ -55,7 +55,8 @@ export default {
       },
       currentUser: null,
       currentPass: null,
-      wrongMessage: '',
+      wrongMessage: null,
+      successMsg: null
     };
   },
   methods: {
@@ -75,7 +76,6 @@ export default {
         const data = await response.json();
 
         for (let i = 0; i < data.length; i++) {
-          console.log(data[i])
           if(this.ruleForm.login === data[i].login) {
             this.currentUser = data[i].login
             if(this.ruleForm.pass === data[i].pass) {
@@ -86,14 +86,12 @@ export default {
         }
 
         if(!this.currentUser) {
-          console.log('Not existing login')
           this.wrongMessage = 'Not existing login'
         } else if (!this.currentPass) {
-          console.log('Wrong password. Try again!')
           this.wrongMessage = 'Wrong password. Try again!'
         } else {
-          this.wrongMessage = `Hello ${this.currentUser}`
-          console.log('Hello', this.currentUser)
+          this.wrongMessage = null
+          this.successMsg = `Hello ${this.currentUser}`
         }
       } catch (e) {
         console.warn('Ошибка: ' ,e)
@@ -107,10 +105,13 @@ export default {
 </script>
 
 <style lang="scss">
-  .wrong-message {
+  .wrong-message, .success-msg {
     color: #f56c6c;
     text-align: center;
     padding: 5px 8px;
     border-radius: 15px;
+  }
+  .success-msg {
+    color: #67c23a;
   }
 </style>

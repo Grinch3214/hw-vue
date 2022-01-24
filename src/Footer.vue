@@ -16,7 +16,7 @@ export default {
 
 <style lang="scss">
 .footer-nav {
-  background-color: #000;
+  background-color: #409EFF;
   color: #fff;
   padding: 14px 0;
   text-align: center;

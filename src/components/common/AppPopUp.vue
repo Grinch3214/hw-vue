@@ -25,7 +25,9 @@
           icon="el-icon-arrow-left"
           >Back</el-button
         >
-        <el-button @click="$emit('continuePopUpEven')" type="primary"
+        <el-button
+          @click="$emit('continuePopUpEven')"
+          type="primary"
           >Continue<i class="el-icon-arrow-right"></i
         ></el-button>
       </div>

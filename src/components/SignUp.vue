@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" v-if="success">
+    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm">
       <el-form-item label="Login" prop="login">
         <el-input v-model.trim="ruleForm.login" autocomplete="off"></el-input>
       </el-form-item>
@@ -24,6 +24,7 @@
         >
         <el-button @click="resetForm('ruleForm')">Reset</el-button>
       </el-form-item>
+      <p :class="{ 'wrong-message': wrongMessage, 'success-msg': successMsg }">{{ wrongMessage || successMsg }}</p>
     </el-form>
   </div>
 </template>
@@ -65,7 +66,9 @@ export default {
       }, 100);
     };
     return {
-      success: true,
+      currentUser: null,
+      wrongMessage: null,
+      successMsg: null,
       ruleForm: {
         pass: "",
         checkPass: "",
@@ -82,24 +85,52 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          fetch("https://sheetdb.io/api/v1/vqwb2m3eqp5ai", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              ruleForm: this.ruleForm,
-            }),
-          })
-            .then((response) => response.json())
-            .then((json) => console.log(json))
-            .catch((err) => console.log(err));
-          console.log("submit!");
+          this.fetchAsync()
         } else {
           console.log("error submit!!");
           return false;
         }
       });
+    },
+    async fetchAsync() {
+      try {
+        const response = await fetch('https://sheetdb.io/api/v1/vqwb2m3eqp5ai');
+        const data = await response.json();
+
+        for (let i = 0; i < data.length; i++) {
+          if(this.ruleForm.login === data[i].login) {
+            this.currentUser = data[i].login
+            break
+          }
+        }
+
+        if(this.currentUser) {
+          console.log('User with this login exists')
+          this.wrongMessage = 'User with this login exists'
+        } else if (!this.currentUser && this.ruleForm.pass === '') {
+          console.log('Please enter your password')
+          this.wrongMessage = 'Please enter your password'
+        } else if (!this.currentUser && this.ruleForm.checkPass === '') {
+          console.log('Please enter your password again')
+          this.wrongMessage = 'Please enter your password again'
+        } else if(!this.currentUser && this.ruleForm.pass !== this.ruleForm.checkPass) {
+          console.log('You entered different passwords. Please edit them and try again.')
+          this.wrongMessage = 'You entered different passwords. Please edit them and try again.'
+        } else {
+            await (await fetch ('https://sheetdb.io/api/v1/vqwb2m3eqp5ai', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                ruleForm: this.ruleForm
+              })
+            })).json()
+            this.successMsg = 'Registration was successful. Welcome!'
+        }
+      } catch (e) {
+        console.warn('Ошибка: ' ,e)
+      }
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

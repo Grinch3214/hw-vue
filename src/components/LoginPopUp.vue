@@ -56,7 +56,7 @@ export default {
   right: 0;
   bottom: 0;
   background: #0005;
-  overflow: scroll;
+  overflow: auto;
   &__wrap {
     position: absolute;
     top: 50%;
