@@ -2,7 +2,10 @@
   <div id="app" class="app" :class="{ active: showLoginPopUp }">
     <Header @loginButtonClick="loginButtonClick" />
     <div class="container main">
-      <app-button @appButtonClick="appButtonClick" />
+      <app-button
+        @appButtonClick="appButtonClick"
+        appButtonText="appButtonClick"
+      />
       <post-list />
       <app-pop-up
         v-if="show"
@@ -10,7 +13,10 @@
         @backPopUpEvent="backPopUpEvent"
         @continuePopUpEven="continuePopUpEven"
       />
-      <login-pop-up v-if="showLoginPopUp" @closePopUp="closePopUp"/>
+      <login-pop-up v-if="showLoginPopUp" @closePopUp="closePopUp" />
+      <div class="save-inner">
+        <app-button appButtonText="Save" />
+      </div>
     </div>
     <Footer />
   </div>
@@ -54,7 +60,7 @@ export default {
     },
     closePopUp() {
       this.showLoginPopUp = false;
-    }
+    },
   },
 };
 </script>
@@ -70,5 +76,9 @@ export default {
 }
 .main {
   flex-grow: 1;
+}
+.save-inner {
+  text-align: center;
+  padding: 0 0 25px;
 }
 </style>

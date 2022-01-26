@@ -1,6 +1,8 @@
 <template>
   <div>
-    <el-button @click="$emit('appButtonClick')">App Button</el-button>
+    <el-button @click="$emit('appButtonClick')">
+      {{ appButtonText }}
+    </el-button>
   </div>
 </template>
 
@@ -8,5 +10,6 @@
 export default {
   name: "AppButton",
   components: {},
+  props: ["appButtonText"],
 };
 </script>
