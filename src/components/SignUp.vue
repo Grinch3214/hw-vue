@@ -209,12 +209,13 @@
         </select>
       </div>
 
-        <div 
-          class="result" 
-          v-for="(item, index) in userInfo" 
-          :key="index">
-            {{ index  }}: <span>{{ item }}</span>
-        </div>
+      <div 
+        class="result" 
+        v-for="(item, index) in userInfo" 
+        :key="index">
+          {{ index  }}: <span>{{ item }}</span>
+      </div>
+
     </form>
 
   </div>
