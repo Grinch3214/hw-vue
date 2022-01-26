@@ -1,7 +1,7 @@
 <template>
   <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm">
     <el-form-item label="Login" prop="login">
-      <el-input v-model.trim="ruleForm.login" autocomplete="off"></el-input>
+      <el-input v-model.trim="ruleForm.login" autocomplete="off" @change="fetchAsync"></el-input>
     </el-form-item>
     <el-form-item label="Password" prop="pass">
       <el-input
