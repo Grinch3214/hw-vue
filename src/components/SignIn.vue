@@ -23,6 +23,14 @@
 <script>
 export default {
   name: "SignIn",
+  props:{
+    usersUsernames: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
+  },
   data() {
     const validatePass = (rule, value, callback) => {
       if (value === "") {
@@ -75,9 +83,9 @@ export default {
         const response = await fetch('https://sheetdb.io/api/v1/vqwb2m3eqp5ai');
         const data = await response.json();
 
-        for (let i = 0; i < data.length; i++) {
-          if(this.ruleForm.login === data[i].login) {
-            this.currentUser = data[i].login
+        for (let i = 0; i < this.usersUsernames.length; i++) {
+          if(this.ruleForm.login === this.usersUsernames[i]) {
+            this.currentUser = this.usersUsernames[i]
             if(this.ruleForm.pass === data[i].pass) {
               this.currentPass = data[i].pass
               break

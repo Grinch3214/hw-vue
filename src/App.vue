@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="app" :class="{ active: showLoginPopUp }">
-    <Header @loginButtonClick="loginButtonClick" />
+    <Header :showLoginPopUp.sync="showLoginPopUp" />
     <div class="container main">
       <app-button
         @appButtonClick="appButtonClick"
@@ -13,7 +13,7 @@
         @backPopUpEvent="backPopUpEvent"
         @continuePopUpEven="continuePopUpEven"
       />
-      <login-pop-up v-if="showLoginPopUp" @closePopUp="closePopUp" />
+      <login-pop-up v-if="showLoginPopUp" :showLoginPopUp.sync="showLoginPopUp" />
       <div class="save-inner">
         <app-button appButtonText="Save" />
       </div>
@@ -55,12 +55,9 @@ export default {
     continuePopUpEven() {
       console.log("continuePopUpEven");
     },
-    loginButtonClick() {
-      this.showLoginPopUp = true;
-    },
-    closePopUp() {
-      this.showLoginPopUp = false;
-    },
+    // loginButtonClick() {
+    //   this.showLoginPopUp = true;
+    // },
   },
 };
 </script>

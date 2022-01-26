@@ -2,7 +2,7 @@
   <div class="header-nav">
     <div class="header-nav__menu container">
       <div v-html="logoHtml"></div>
-      <el-button style="color: #fff;" type="text" @click="$emit('loginButtonClick')"
+      <el-button style="color: #fff;" type="text" @click="$emit('update:showLoginPopUp', true)"
         >Login</el-button
       >
     </div>

@@ -6,7 +6,7 @@
           size="small"
           icon="el-icon-close"
           circle
-          @click="$emit('closePopUp')"
+          @click="$emit('update:showLoginPopUp', false)"
           class="login-popup__btn"
         ></el-button>
         <div class="login-popup__tabs">
@@ -17,7 +17,7 @@
         </div>
 
         <keep-alive>
-          <component :is="componentName" />
+          <component :is="componentName" :usersUsernames="usersUsernames"/>
         </keep-alive>
       </el-card>
     </div>
@@ -34,8 +34,15 @@ export default {
     SignIn,
     SignUp,
   },
+  props: {
+    showLoginPopUp: {
+      type: Boolean,
+      default: false,
+    }
+  },
   data: () => ({
     isCollapse: true,
+    usersUsernames: [],
   }),
   computed: {
     componentName() {
@@ -44,6 +51,11 @@ export default {
       }
       return "SignUp";
     },
+  },
+  created() {
+    fetch('https://sheetdb.io/api/v1/vqwb2m3eqp5ai')
+    .then(response => response.json())
+    .then(data => this.usersUsernames = data.map(item => item.login))
   },
 };
 </script>
