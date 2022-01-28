@@ -209,14 +209,22 @@
         </select>
       </div>
 
-      <div 
+      <div class="main-btn">
+        <button 
+          :disabled="!сanBeRegistered"
+          :class="{'disabled-button': !сanBeRegistered}"
+        >Sign UP</button>
+      </div>
+
+      
+    </form>
+
+    <div 
         class="result" 
         v-for="(item, index) in userInfo" 
         :key="index">
           {{ index  }}: <span>{{ item }}</span>
       </div>
-
-    </form>
 
   </div>
 </template>
@@ -226,6 +234,8 @@ export default {
   name: "SignUp",
   data() {
     return {
+      сanBeRegistered: false,
+      cloneUserInfo: {},
       userInfo: {
         name: "",
         surname: "",
@@ -298,6 +308,15 @@ export default {
       isActive: '',
     };
   },
+  watch:{
+    'userInfo':{
+      deep:true,
+      immediate: true,
+      handler(){
+        this.сanBeRegistered = Object.values(this.userInfo).every(o => !!o)
+      }
+    }
+  },
   methods: {
     setActiveItem(activeInput) {
       this.isActive = activeInput;
@@ -363,6 +382,14 @@ export default {
       padding-left: 8px;
       color: rgb(139, 0, 0);
     }
+  }
+  .main-btn {
+    margin: 14px auto;
+    text-align: center;
+  }
+  .disabled-button {
+    box-shadow: 0 0 5px 0 #ccc;
+    cursor: not-allowed;
   }
 }
 </style>
